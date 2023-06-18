@@ -1,13 +1,15 @@
 import json
+import re
 
 #1
 def cargar_pokemones(nombre_archivo) -> list:
       
     '''
-    Brief: Lee un archivo CSV con información de Pokemones y retorna una lista de diccionarios
-    con los datos de cada uno.    
+    Lee un archivo CSV con información de Pokemones y retorna una lista de diccionarios
+    con los datos de cada uno.
+    
     Retorna: lista de diccionarios, donde cada diccionario representa un Pokemon y contiene las 
-    siguientes claves: nro de pokedex, nombre, tipo, poder de ataque y defensa y habilidades.
+    siguientes claves: N° Pokedex, Nombre, Tipo, Poder de Ataque, Poder de Defensa y Habilidades.
     '''
     
 
@@ -109,10 +111,9 @@ def listar_pokemones_por_tipo(pokemones):
 
 #4
 def listar_pokemones_por_habilidad(pokemones):
-    
     '''
     Descripción: listar_pokemones_por_habilidad
-    Parámetros: 
+    Parámetros:
     pokemones es una lista de diccionarios que contiene los datos de los pokemones
     Retorna: Esta función no retorna nada, simplemente imprime por pantalla los nombres, tipos y promedio
     de poder de los pokemones que tienen la habilidad indicada. Si no se encuentran pokemones con esa habilidad, 
@@ -122,15 +123,15 @@ def listar_pokemones_por_habilidad(pokemones):
     while True:
         # Se pide la habilidad deseada al usuario
         habilidad = input("Ingrese la habilidad que desea buscar: ").capitalize()
-    
+
         # Lista para almacenar los pokemones con la habilidad buscada
         pokemones_con_habilidad = []
-    
+
         # Se busca la habilidad en la lista de pokemones
         for pokemon in pokemones:
-            habilidades = pokemon.get('Habilidades') # Se obtiene la lista de habilidades
+            habilidades = pokemon.get('Habilidades', [])
             for habilidad_pokemon in habilidades:
-                if habilidad in habilidad_pokemon.split('|'): 
+                if re.search(habilidad, habilidad_pokemon, flags=re.IGNORECASE):
                     pokemones_con_habilidad.append(pokemon)
 
         # Si se encontraron pokemones con la habilidad deseada, se muestran y se pregunta si se desea buscar otra habilidad
@@ -138,9 +139,9 @@ def listar_pokemones_por_habilidad(pokemones):
             # Se muestra el nombre, tipo y promedio de poder entre ataque y defensa de los pokemones con la habilidad deseada
             print(f"Los pokemones con la habilidad '{habilidad}' son:")
             for pokemon in pokemones_con_habilidad:
-                promedio_poder = int(pokemon['Poder de Ataque']) + int(pokemon['Poder de Defensa']) / 2
+                promedio_poder = (int(pokemon['Poder de Ataque']) + int(pokemon['Poder de Defensa'])) / 2
                 print(f"Nombre: {pokemon['Nombre']}, Tipo: {str(pokemon['Tipo']).strip('[]')}, Promedio de poder: {promedio_poder}")
-                
+
             # Se pregunta si se desea buscar otra habilidad
             while True:
                 opcion = input("¿Desea buscar otra habilidad? (S/N): ").lower()
@@ -150,7 +151,6 @@ def listar_pokemones_por_habilidad(pokemones):
                     break
                 else:
                     print("Opción inválida, por favor ingrese 'S' o 'N'.")
-
         else:
             print(f"No se encontraron pokemones con la habilidad '{habilidad}'.")
 
