@@ -3,6 +3,17 @@ import re
 
 #8 agregado
 def agregar_pokemon(lista_pokemones):
+    '''
+    Descripción: agregar_pokemon
+    Parámetros:
+    lista_pokemones es la lista de pokemones existentes a la cual se agregará un nuevo pokémon
+    Retorna: La función retorna un diccionario que contiene los datos del nuevo pokémon agregado.
+    Esta función permite al usuario agregar un nuevo pokémon a la lista de pokemones existentes
+    Esta función proporciona una forma interactiva de agregar nuevos pokemones a la lista existente,
+    asegurando la validación de los datos ingresados y evitando duplicados.
+
+    Nota: La función utiliza el módulo "re" para realizar la validación de los datos ingresados.
+    '''
     pokedex = input("Ingrese el número de la Pokédex del pokémon que quiere agregar: ")
 
     while not re.match(r'^\d{3}$', pokedex):
@@ -62,6 +73,19 @@ def agregar_pokemon(lista_pokemones):
 
 #8.1 agregado
 def guardar_pokemon_en_csv(pokemon, path):
+    '''
+    Descripción: guardar_pokemon_en_csv
+    Parámetros:
+    - pokemon: diccionario que contiene los datos del pokémon a guardar en el archivo CSV.
+    - path: ruta del archivo CSV donde se guardarán los datos del pokémon.
+
+    Esta función recibe un diccionario que contiene los datos de un pokémon y una ruta de archivo CSV.
+    Esta función es útil para almacenar los datos de un pokémon en un archivo CSV,
+    permitiendo su posterior recuperación y análisis. 
+    Cada vez que se llama a esta función con un nuevo pokémon, los datos se agregan al archivo existente sin sobrescribir el contenido anterior.
+
+    Nota: Se asume que el archivo CSV ya existe en la ruta especificada.
+    '''
     with open(path, mode="a", newline="", encoding="UTF-8") as archivo_csv:
         habilidades_str = ', '.join(pokemon["Habilidades"])
         fila = f'{pokemon["N° Pokedex"]},{pokemon["Nombre"]},{pokemon["Tipo"]},{pokemon["Poder de Ataque"]},{pokemon["Poder de Defensa"]},{habilidades_str}\n'
