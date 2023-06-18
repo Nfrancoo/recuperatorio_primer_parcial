@@ -187,7 +187,7 @@ def imprimir_pokemones_ordenados(lista_pokemones):
     '''
     for pokemon in lista_pokemones:
         print(f"Nombre: {pokemon['Nombre']}, Tipo: {str(pokemon['Tipo']).strip('[]')},"            
-            "Poder de Ataque: {pokemon['Poder de Ataque']}, Poder de Defensa: {pokemon['Poder de Defensa']}")
+            f"Poder de Ataque: {pokemon['Poder de Ataque']}, Poder de Defensa: {pokemon['Poder de Defensa']}")
 
 # 6
 def crear_json(tipo, lista_pokemones):
@@ -215,6 +215,7 @@ def crear_json(tipo, lista_pokemones):
             break
         else:
             print('Se creo correctamente el archivo Json')
+            break
 
     # Crear un diccionario para guardar los datos de los pokemones
     datos_pokemones = {}
