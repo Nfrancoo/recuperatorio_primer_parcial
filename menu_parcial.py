@@ -53,16 +53,18 @@ def pokemon_app():
             case '6':
                 if lista_pokemones_aprobada:
                     tipo_pokemon = input('Indique el tipo de pokemon que desea crear en el archivo JSON: ').capitalize()
-                    crear_json(tipo_pokemon, lista_pokemones)                  
+                    nombre_archivo = crear_json(tipo_pokemon, lista_pokemones)                  
                 else:
-                    print("No se cargo la lista de pokemones correctamente.Por favor solicita la opcion 1 primero")
+                    print("No se cargó la lista de pokemones correctamente. Por favor, solicite la opción 1 primero.")
             case '7':
                 if lista_pokemones_aprobada:
-                    nombre_archivo = crear_json(tipo_pokemon, lista_pokemones)   
+                    nombre_archivo = input("Indique el nombre del archivo JSON a leer: ").capitalize()
                     datos_pokemones = leer_json(nombre_archivo)
-                    print(json.dumps(datos_pokemones, indent=4, ensure_ascii = False))
+                    if datos_pokemones is not None:
+                        print(json.dumps(datos_pokemones, indent=4, ensure_ascii=False))
                 else:
-                    print("No se cargo la lista de pokemones correctamente.Por favor solicita la opcion 1 primero")
+                    print("No se cargó la lista de pokemones correctamente. Por favor, solicite la opción 1 primero.")
+    
             case '8':
                 if lista_pokemones_aprobada:
                     nuevo_pokemon = agregar_pokemon(lista_pokemones)

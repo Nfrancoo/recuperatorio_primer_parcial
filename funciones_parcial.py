@@ -262,9 +262,12 @@ def leer_json(nombre_archivo):
     Retorna: La función retorna un diccionario que contiene los datos del archivo JSON para asi luego
     printearlo en el menu
     '''
-    nombre_archivo = input("Indique el nombre del archivo JSON a leer: ")
     if "." not in nombre_archivo:
         nombre_archivo += ".json"
-    with open(nombre_archivo, "r", encoding='utf-8') as archivo:
-        datos_pokemones = json.load(archivo)
-    return datos_pokemones
+    try:
+        with open(nombre_archivo, "r", encoding='utf-8') as archivo:
+            datos_pokemones = json.load(archivo)
+        return datos_pokemones
+    except FileNotFoundError:
+        print(f"El archivo {nombre_archivo} no existe.")
+        return None
